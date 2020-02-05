@@ -1,18 +1,16 @@
-import tensorflow as tf
 import keras
-from keras.layers import Activation, Dense, Dropout, Conv2D, Flatten, MaxPooling2D
-from keras.models import Sequential
 from sklearn.model_selection import train_test_split
 import librosa
 import librosa.display
 import numpy as np
 import pandas as pd
-
-import warnings
-warnings.filterwarnings('ignore')
-
+from keras.layers import Activation, Dense, Dropout, Conv2D, Flatten, MaxPooling2D
+from keras.models import Sequential
 from keras import backend as K
 K.tensorflow_backend._get_available_gpus()
+import warnings
+warnings.filterwarnings('ignore')
+import matplotlib.pyplot as plt
 
 from load_data import *
 
@@ -39,9 +37,8 @@ with open("note_model.json", "w") as json_file:
     json_file.write(model_json)
 model.save_weights("note_weight.h5")
 
-score = model.evaluate(
-	x=X_test,
-	y=y_test)
+score = model.evaluate(x=X_test, y=y_test)
+print(score)
 
 # plot graph train and test 
 plt.plot(np.squeeze(history.history['acc']))

@@ -9,7 +9,7 @@ from keras.models import Sequential, Model, load_model, model_from_json
 
 from Strum_detection import *
 
-file_test = 'testinon3.wav'
+file_test = 'Dataset/testinon3.wav'
 offset = 0
 duration = 10
 
@@ -25,7 +25,7 @@ print("Loaded model from disk")
 loaded_model.compile(
 	optimizer="Adam",
 	loss="categorical_crossentropy",
-	metrics=['accuracy', precision, recall,fmeasure])
+	metrics=['accuracy'])
 
 class_note = ['A','A#','B','C','C#','D','D#','E','F','F#','G','G#']
 
@@ -34,7 +34,7 @@ for i in range(len(time)):
     ps = librosa.feature.melspectrogram(y=y, sr=sr)
     ps_test = np.array([ps.reshape( (128, 11, 1) )])
 
-    predictions = model.predict_classes(ps_test)
+    predictions = loaded_model.predict_classes(ps_test)
     if i != len(time)-1:
         print(str(round(time[i],2)) + ' s - '  + str(round(time[i+1],2)) + ' s note: ' + class_note[predictions[0]])
     else:

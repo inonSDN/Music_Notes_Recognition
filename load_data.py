@@ -3,6 +3,13 @@ import pandas as pd
 import librosa
 import random
 from progress.bar import Bar
+import tensorflow as tf
+import keras
+from keras.layers import Activation, Dense, Dropout, Conv2D, Flatten, MaxPooling2D
+from keras.models import Sequential
+from keras import backend as K
+K.tensorflow_backend._get_available_gpus()
+
 
 
 def load_csv_data(file_csv, duration=0.25):

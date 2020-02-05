@@ -14,7 +14,9 @@ def sortFirst(val):
 
 def detect_window(audiofile, offset, duration):
 
+    # window size 10 ms
     window_time = 0.01
+    # threshold of peak is 25%
     threshold = 0.25
 
     data, sr = librosa.load(audiofile,offset=offset,duration=duration)
@@ -29,8 +31,10 @@ def cal_energy(audiofile, offset, duration):
 
     cal_temp = []
     energy = []
+
     window_peak, data = detect_window(audiofile, offset, duration)
     
+    # calculate amplitude^2 in window
     for d in range(len(data)):
         if d % int(window_peak/2) == 0 :
             if d + window_peak >= len(data):
@@ -65,7 +69,8 @@ def cal_energy(audiofile, offset, duration):
     return energy, data
 
 def peak(audiofile, offset, duration, threshold_amp_rate):
-
+    
+    # find peak that have amplitude more than threshold_amp_rate
     peak_amp = []
     energy, data = cal_energy(audiofile, offset, duration)
     
